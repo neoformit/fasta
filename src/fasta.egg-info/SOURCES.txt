@@ -1,0 +1,10 @@
+LICENSE
+README.md
+pyproject.toml
+setup.cfg
+src/fasta/__init__.py
+src/fasta/fasta.py
+src/fasta.egg-info/PKG-INFO
+src/fasta.egg-info/SOURCES.txt
+src/fasta.egg-info/dependency_links.txt
+src/fasta.egg-info/top_level.txt
