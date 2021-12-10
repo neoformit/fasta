@@ -1,1 +1,1 @@
-from fasta import read, write
+from .fasta import read, write
