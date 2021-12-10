@@ -1,25 +1,31 @@
-def read(fName):
-        
-    """Reads in a fasta-formatted sequence file.
-    
+"""Read and write fasta files.
+
+Fasta files read into a Python dictionary as <sequence_id>: <sequence>.
+"""
+
+
+def read(filename):
+    """Read in a fasta-formatted sequence file.
+
     Returns a dictionary of sequences, indexed by sequence title.
 
-    Arguments
+    Arguments:
     ---------
     filename: a string of the filename to be read or an open file handle
-    """
 
-    if isinstance(fName, str):
-        handle = open(fName,'r')
-    else: handle = fName
-    
+    """
+    if isinstance(filename, str):
+        handle = open(filename, 'r')
+    else:
+        handle = filename
+
     seq = ""
     title = ""
     seqData = {}
     copy = False
-    
+
     for line in handle:
-        if line[0]=='>':
+        if line[0] == '>':
             if copy is True:
                 seqData[title] = seq
             title = line.strip(">\n\r ")
@@ -31,35 +37,34 @@ def read(fName):
         raise KeyError('Fasta file contains duplicate contig ids.')
     seqData[title] = seq
 
-    if isinstance(fName, str):
+    if isinstance(filename, str):
         handle.close()
     return seqData
 
 
-
 def write(data, filename):
-        
+    """Write a dictionary of FASTA sequences to file.
+
+    Arguments:
+    ---------
+    data: dict Dictionary of {sid: sequence}
+    filename: str Filename to write
+
     """
-    Writes a dictionary of DNA or Protein sequences to the given file name
-    in fasta format.
-    
-    Requires two positional arguments: fas (dict), fname (str)
-    """
-    
-    w = open(filename,'w')
-    writeList = []
-    
+    w = open(filename, 'w')
+    write_list = []
+
     for title, sequence in data.items():
-        
-        seqList = []
+
+        sequence_list = []
         while True:
             if len(sequence) >= 80:
-                seqList.append(sequence[0:80])
+                sequence_list.append(sequence[0:80])
                 sequence = sequence[80:]
             else:
-                seqList.append(sequence)
+                sequence_list.append(sequence)
                 break
-        writeList.append('>' + title + '\n' + '\n'.join(seqList))
-    
-    w.write('\n'.join(writeList))
+        write_list.append('>' + title + '\n' + '\n'.join(sequence_list))
+
+    w.write('\n'.join(write_list))
     w.close()
