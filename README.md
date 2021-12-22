@@ -1,5 +1,5 @@
 # fasta
-A simple parser and writer for FASTA files
+A dead simple parser and writer for FASTA files. No bells or whistles, just a Python dictionary.
 
 
 ```python
